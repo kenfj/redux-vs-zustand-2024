@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Redux VS Zustand in Next.js 2024
+
+* Let's compare Redux Toolkit and Zustand in Next.js 14 using basic counter as of July 2024.
+* I tried to create very simple counter based on (i.e. copy paste from) each official docs.
+* please refer also npm trends
+  - https://npmtrends.com/jotai-vs-mobx-vs-react-redux-vs-recoil-vs-redux-vs-zustand
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Comparison
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+|                   | Redux | Zustand | Winner |
+| ---               | ---   | ---     | ---     |
+| setup package     | official doc is not clear what's required.<br>you will need `react-redux`<br> as well as `@reduxjs/toolkit` | just `zustand` | Zustand |
+| coding experience | official doc is not so friendly<br> so you will need to google a lot | official doc provides clear info | Zustand |
+| readability       | still mysterious boilerplate required<br> even in Redux Toolkit<br>cf. `src/lib/hooks.ts` | you just need one interface<br> and useStore custom hook | Zustand |
+| number of lines   | 38 lines<br>`src/lib/features/counter/counterSlice.ts`   | 7 lines<br>`src/zustandlib/useStore.tsx`    | Zustand |
+| Next.js SSR       | you will need `"use client";` | you will need `"use client";` | tie? |
+| impression        | always come with `dispatch` looks not DRY nowadays<br>need to wrap children by `<StoreProvider>`<br> in root `layout.tsx` almost like `Context` | no `Provider` pyramids required | Zustand |
 
-## Learn More
+* Redux
+  - code: `src/lib`
+  - http://localhost:3000/
+* Zustand
+  - code: `src/zustandlib`
+  - http://localhost:3000/zustand-counter
 
-To learn more about Next.js, take a look at the following resources:
+## Conclusion
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* Overall, Zustand is much simpler to create basic stuff like counter.
+* if it's more than counter, you may need to consider other factors.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Setup Notes
 
-## Deploy on Vercel
+### Next.js
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+* Next.js
+  - https://nextjs.org/docs/getting-started/installation
+  - `npx create-next-app@latest`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Redux
+
+* Redux Toolkit
+  - https://redux-toolkit.js.org/introduction/getting-started
+    - `npx create-next-app --example with-redux my-app` is not recommended
+    - it will create old style app.
+  - `npm install @reduxjs/toolkit`
+
+* React Redux
+  - https://react-redux.js.org/introduction/getting-started
+  - `npm install react-redux`
+
+* Redux Next.js
+  - https://redux-toolkit.js.org/usage/nextjs
+  - official doc suggest to put Redux stuff in `src/lib`
+
+### Zustand
+
+* Zustand
+  - https://github.com/pmndrs/zustand
+  - https://zustand-demo.pmnd.rs/
+  - `npm install zustand`
+
+## Reference
+
+Special thanks to these blogs to create Redux counters.
+
+* https://qiita.com/ekzemplaro/items/bb6af7a3c758e5455105
+* https://zako-lab929.hatenablog.com/entry/20240308/1709899974
+* https://zenn.dev/matsutoba/articles/a9695787d616bf
