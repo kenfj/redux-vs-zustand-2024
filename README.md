@@ -20,16 +20,16 @@ Open [http://localhost:3000](http://localhost:3000)
 | ---               | ---   | ---     | ---     |
 | setup package     | official doc is not clear what's required.<br>you will need `react-redux`<br> as well as `@reduxjs/toolkit` | just `zustand` | Zustand |
 | coding experience | official doc is not so friendly<br> so you will need to google a lot | official doc provides clear info | Zustand |
-| readability       | still mysterious boilerplate required<br> even in Redux Toolkit<br>cf. `src/lib/hooks.ts` | you just need one interface<br> and useStore custom hook | Zustand |
-| number of lines   | 38 lines<br>`src/lib/features/counter/counterSlice.ts`   | 7 lines<br>`src/zustandlib/useStore.tsx`    | Zustand |
+| readability       | still mysterious boilerplate required<br> even in Redux Toolkit<br>cf. [`src/lib/hooks.ts`](./src/lib/hooks.ts) | you just need one interface<br> and useStore custom hook | Zustand |
+| number of lines   | 38 lines<br>cf. [`counterSlice.ts`](./src/lib/features/counter/counterSlice.ts) | 7 lines<br>cf. [`useStore.tsx`](./src/zustandlib/useStore.tsx) | Zustand |
 | Next.js SSR       | you will need `"use client";` | you will need `"use client";` | tie? |
-| impression        | always come with `dispatch` looks not DRY nowadays<br>need to wrap children by `<StoreProvider>`<br> in root `layout.tsx` almost like `Context` | no `Provider` pyramids required | Zustand |
+| impression        | always come with `dispatch` looks not DRY nowadays<br>need to wrap children by [`<StoreProvider>`](./src/app/StoreProvider.tsx)<br> in root `layout.tsx` almost like `Context` | no `Provider` pyramids required | Zustand |
 
 * Redux
-  - code: `src/lib`
+  - code: [`src/lib`](./src/lib/)
   - http://localhost:3000/
 * Zustand
-  - code: `src/zustandlib`
+  - code: [`src/zustandlib`](./src/zustandlib/)
   - http://localhost:3000/zustand-counter
 
 ## Conclusion
