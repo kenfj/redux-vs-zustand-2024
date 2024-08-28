@@ -23,17 +23,28 @@ Open [http://localhost:3000](http://localhost:3000)
 | ---               | ---   | ---     | ---     |
 | setup package     | official doc is not clear what's required.<br>you will need `react-redux`<br> as well as `@reduxjs/toolkit` | just `zustand` | Zustand |
 | coding experience | official doc is not so friendly<br> so you will need to google a lot | official doc provides clear info | Zustand |
-| readability       | still mysterious boilerplate required<br> even in Redux Toolkit<br>cf. [`src/lib/hooks.ts`](./src/lib/hooks.ts) | you just need one interface<br> and useStore custom hook | Zustand |
-| number of lines   | 38 lines<br>cf. [`counterSlice.ts`](./src/lib/features/counter/counterSlice.ts) | 7 lines<br>cf. [`useStore.tsx`](./src/zustand-lib/useStore.tsx) | Zustand |
-| impression        | always come with `dispatch` looks not DRY nowadays<br>need to wrap children by [`<StoreProvider>`](./src/app/StoreProvider.tsx)<br> in root `layout.tsx` almost like `Context` | no `Provider` pyramids required | Zustand |
+| readability       | still mysterious boilerplate required<br> even in Redux Toolkit<br>cf. [`src/redux-lib/hooks.ts`](./src/redux-lib/hooks.ts) | you just need one interface<br> and useStore custom hook | Zustand |
+| number of lines   | 38 lines<br>cf. [`counterSlice.ts`](./src/redux-lib/features/counter/counterSlice.ts) | 7 lines<br>cf. [`useCounterStore.ts`](./src/zustand-lib/useCounterStore.ts) | Zustand |
+| impression        | always come with `dispatch` looks not DRY nowadays<br>need to wrap children by [`<StoreProvider>`](./src/redux-lib/StoreProvider.tsx)<br> in root `layout.tsx` almost like `Context` | optional to use a `Context` as in [CounterStoreProvider.tsx](./src/zustand-context-lib/CounterStoreProvider.tsx) | Zustand |
 
 * Redux
-  - code: [`src/lib`](./src/lib/)
+  - code: [`src/redux-lib`](./src/redux-lib/)
   - http://localhost:3000/redux-counter
 * Zustand
   - code: [`src/zustand-lib`](./src/zustand-lib/)
   - http://localhost:3000/zustand-counter
-* Note: both will need `"use client";` since it's about the state of client side.
+* Zustand with Context
+  - code: [`src/zustand-context-lib`](./src/zustand-context-lib/)
+  - http://localhost:3000/zustand-context-counter
+
+## Notes
+
+* Both will need `"use client";` since it's about the state of the client side.
+* Zustand store is optional to use Context
+* But to reset a store, need to initialize the store at the component level using a Context
+  - https://docs.pmnd.rs/zustand/guides/nextjs
+  - https://docs.pmnd.rs/zustand/guides/how-to-reset-state
+  - https://docs.pmnd.rs/zustand/guides/initialize-state-with-props
 
 ## Conclusion
 
@@ -81,10 +92,16 @@ Open [http://localhost:3000](http://localhost:3000)
 * https://github.com/tailwindlabs/tailwindcss-typography
   - `npm install -D @tailwindcss/typography`
 
+### Import Sort
+
+* https://github.com/lydell/eslint-plugin-simple-import-sort
+  - `npm install --save-dev eslint-plugin-simple-import-sort`
+
 ## Reference
 
-Special thanks to these blogs to create Redux counters.
-
-* https://qiita.com/ekzemplaro/items/bb6af7a3c758e5455105
-* https://zako-lab929.hatenablog.com/entry/20240308/1709899974
-* https://zenn.dev/matsutoba/articles/a9695787d616bf
+* Redux counters
+  - https://qiita.com/ekzemplaro/items/bb6af7a3c758e5455105
+  - https://zako-lab929.hatenablog.com/entry/20240308/1709899974
+  - https://zenn.dev/matsutoba/articles/a9695787d616bf
+* Zustand
+  - https://refine.dev/blog/zustand-react-state/

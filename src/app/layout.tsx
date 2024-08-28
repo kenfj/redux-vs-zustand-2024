@@ -1,8 +1,10 @@
+import "./globals.css";
+
 import { NextUIProvider } from "@nextui-org/react";
 import type { Metadata } from "next";
 
-import "./globals.css";
-import StoreProvider from "./StoreProvider";
+import StoreProvider from "@/redux-lib/StoreProvider";
+import { CounterStoreProvider } from "@/zustand-context-lib/CounterStoreProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,9 +23,11 @@ export default function RootLayout({
     <html lang="en">
       <body className="prose prose-sm !max-w-none">
         <StoreProvider>
-          <NextUIProvider>
-            {children}
-          </NextUIProvider>
+          <CounterStoreProvider>
+            <NextUIProvider>
+              {children}
+            </NextUIProvider>
+          </CounterStoreProvider>
         </StoreProvider>
       </body>
     </html>
